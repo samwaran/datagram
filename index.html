@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart Creator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img style="max-width: 10em;" src="./assets/logo.png" class="logo" alt="">
+    <div class="actions">
+      <button id="downloadPNG">Download PNG</button>
+      <button id="downloadJPG">Download JPG</button>
+      <button id="updateChart">Update Chart</button>
+      <div>
+        <select id="chartType">
+          <option value="line">Line Chart</option>
+          <option value="bar">Bar Chart</option>
+          <option value="scatter">Scatter Plot</option>
+          <option value="pie">Pie Chart</option>
+          <!--
+          <option value="candlestick">Candlestick Chart</option>
+          -->
+        </select>
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="preview-panel">
+      <div class="chart-container">
+        <canvas id="chartCanvas"></canvas>
+      </div>
+    </div>
+    
+    <div class="editor-panel">
+      <h2 class="panel-title">Chart Editor</h2>
+      
+      <div class="control-group">
+        <h3 class="control-title">Chart Settings</h3>
+        <label for="chartTitle">Chart Title</label>
+        <input type="text" id="chartTitle" placeholder="Enter chart title">
+        
+        <div id="axisLabels">
+          <label for="xAxisLabel">X-Axis Label</label>
+          <input type="text" id="xAxisLabel" placeholder="Enter x-axis label">
+          
+          <label for="yAxisLabel">Y-Axis Label</label>
+          <input type="text" id="yAxisLabel" placeholder="Enter y-axis label">
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <h3 class="control-title">Data</h3>
+        
+        <!-- Standard data input (for Line, Bar, Pie) -->
+        <div id="standardDataInput" class="chart-specific-fields active">
+          <div id="dataInputContainer">
+            <div class="data-row">
+              <input type="text" placeholder="Label" class="data-label">
+              <input type="number" placeholder="Value" class="data-value">
+              <button class="remove-row-btn">×</button>
+            </div>
+          </div>
+          <button class="add-row-btn" id="addDataRow">+ Add Data Point</button>
+        </div>
+        
+        <!-- Scatter Plot data input -->
+        <div id="scatterDataInput" class="chart-specific-fields">
+          <div id="scatterInputContainer">
+            <div class="data-row">
+              <input type="number" placeholder="X Value" class="scatter-x">
+              <input type="number" placeholder="Y Value" class="scatter-y">
+              <button class="remove-row-btn">×</button>
+            </div>
+          </div>
+          <button class="add-row-btn" id="addScatterRow">+ Add Data Point</button>
+        </div>
+        
+        <!-- Candlestick data input -->
+        <div id="candlestickDataInput" class="chart-specific-fields">
+          <div id="candlestickInputContainer">
+            <div class="data-row">
+              <input type="text" placeholder="Date" class="candle-date">
+              <input type="number" placeholder="Open" class="candle-open">
+              <input type="number" placeholder="High" class="candle-high">
+              <input type="number" placeholder="Low" class="candle-low">
+              <input type="number" placeholder="Close" class="candle-close">
+              <button class="remove-row-btn">×</button>
+            </div>
+          </div>
+          <button class="add-row-btn" id="addCandlestickRow">+ Add Data Point</button>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <h3 class="control-title">Styling</h3>
+        <label for="FillColor">Fill Color</label>
+        <div class="color-picker" id="FillColorPicker">
+          <div class="color-option" style="background-color: #FF6384;" data-color="#FF6384"></div>
+          <div class="color-option" style="background-color: #36A2EB;" data-color="#36A2EB"></div>
+          <div class="color-option" style="background-color: #FFCE56;" data-color="#FFCE56"></div>
+          <div class="color-option" style="background-color: #4BC0C0;" data-color="#4BC0C0"></div>
+          <div class="color-option" style="background-color: #9966FF;" data-color="#9966FF"></div>
+          <div class="color-option" style="background-color: #FF9F40;" data-color="#FF9F40"></div>
+        </div>
+        
+        <label for="borderColor">Border Color</label>
+        <div class="color-picker" id="borderColorPicker">
+          <div class="color-option" style="background-color: #FF6384;" data-color="#FF6384"></div>
+          <div class="color-option" style="background-color: #36A2EB;" data-color="#36A2EB"></div>
+          <div class="color-option" style="background-color: #FFCE56;" data-color="#FFCE56"></div>
+          <div class="color-option" style="background-color: #4BC0C0;" data-color="#4BC0C0"></div>
+          <div class="color-option" style="background-color: #9966FF;" data-color="#9966FF"></div>
+          <div class="color-option" style="background-color: #FF9F40;" data-color="#FF9F40"></div>
+        </div>
+
+        <label for="bgColor">Background Color (when Downloading)</label>
+        <div class="color-picker" id="bgColorPicker">
+          <div class="color-option" style="background-color: #ffffff;" data-color="#ffffff"></div>
+          <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
+          <div class="color-option" style="background-color: #ffe195;" data-color="#ffe195"></div>
+          <div class="color-option" style="background-color: #8fffff;" data-color="#8fffff"></div>
+          <div class="color-option" style="background-color: #2b2b2b;" data-color="#2b2b2b"></div>
+          <div class="color-option" style="background-color: #bdbdbd;" data-color="#bdbdbd"></div>
+        </div>
+        
+        <div id="commonChartOptions">
+          <label for="gridLines">Show Grid Lines</label>
+          <select id="gridLines">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+          
+          <label for="legendPosition">Legend Position</label>
+          <select id="legendPosition">
+            <option value="top">Top</option>
+            <option value="right">Right</option>
+            <option value="bottom">Bottom</option>
+            <option value="left">Left</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="interactions.js"></script>
+</body>
+</html>

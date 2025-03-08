@@ -1,0 +1,183 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f5f5f7;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  min-width: 20%;
+}
+
+button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1954ae;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #6eb6ff;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.preview-panel {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-right: 1px solid #ddd;
+  overflow: auto;
+}
+
+#chartType{
+  min-width: fit-content;
+  min-height: 100%;
+}
+
+.chart-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.editor-panel {
+  width: 400px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  overflow-y: auto;
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.control-group {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.control-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+textarea {
+  height: 100px;
+  font-family: monospace;
+}
+
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.color-option {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.data-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.data-row button {
+  padding: 8px;
+  background-color: #ff4444;
+}
+
+.add-row-btn {
+  background-color: #4caf50;
+  margin-top: 10px;
+}
+
+.chart-specific-fields {
+  display: none;
+  margin-top: 10px;
+}
+
+.chart-specific-fields.active {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  
+  .editor-panel {
+    width: 100%;
+  }
+}
